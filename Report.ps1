@@ -29,7 +29,7 @@ function GenerateCommitReport {
     }
 
     # Iterate through each directory in the specified folder
-    $repositories = Get-ChildItem -Path $folderPath -Directory
+    $repositories = Get-ChildItem -Path $folderPath -Recurse -Directory | Where-Object { (Get-ChildItem $_.FullName -Hidden -Directory -Filter ".git").Count -gt 0 }
 
     # Initialize an empty array to store all commits
     $allCommits = @()
